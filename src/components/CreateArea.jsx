@@ -18,6 +18,7 @@ function CreateArea(props) {
                 <button onClick={(event)=>{
                     props.addFunction(inputs);
                     event.preventDefault();
+                    setInputs({title: "", content: ""});
                 }}>Add</button>
             </form>
         </div>
