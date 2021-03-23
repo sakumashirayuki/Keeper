@@ -1,0 +1,34 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "Delegation",
+      "content": "Q. How many programmers does it take to change a light bulb? A. None – It’s a hardware problem"
+    },
+    {
+      "id": 2,
+      "title": "Loops",
+      "content": "How to keep a programmer in the shower forever. Show him the shampoo bottle instructions: Lather. Rinse. Repeat."
+    },
+    {
+      "id": 3,
+      "title": "Arrays",
+      "content": "Q. Why did the programmer quit his job? A. Because he didn't get arrays."
+    },
+    {
+      "title": "HTTP fetch API",
+      "content": "Why we should add headers when using the POST method?",
+      "id": 4
+    },
+    {
+      "title": "HTTP status code 304",
+      "content": "This means \"Not modified\"",
+      "id": 5
+    },
+    {
+      "title": "async/await",
+      "content": "Very important!",
+      "id": 6
+    }
+  ]
+}
