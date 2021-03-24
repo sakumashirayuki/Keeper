@@ -1,0 +1,14 @@
+#dropdown-basic-button:hover{
+  background-color: #f5ba13;
+  box-shadow: 0 0 0 0.2rem #ffc10778;
+}
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #f5ba13;
+  border-color: #e99d11;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 .2rem #ffc10778;
+}
