@@ -9,9 +9,7 @@ function Note(props) {
       <h1>{props.title}</h1>
       <p>{props.content}</p>
       <DropdownButton id="dropdown-basic-button" title="">
-        <Dropdown.Item onClick={()=>{
-          props.clickUpdateFunction(props.id)
-        }}>Update</Dropdown.Item>
+        <Dropdown.Item href="/update">Update</Dropdown.Item>
         <Dropdown.Item
           onClick={() => {
             props.clickDeleteFunction(props.id);

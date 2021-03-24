@@ -8,6 +8,8 @@ import Note from "./Note";
 import NoTaskHeader from "./NoTaskHeader";
 import CreateArea from "./CreateArea";
 
+// import { Home } from "@material-ui/icons";
+
 // import notes from "../notes";
 
 function App() {
@@ -45,11 +47,11 @@ function App() {
       return [...prevArray, data];
     });
   }
-  // update note
-  async function updateNote(noteId) {
-    const dataToUpdate = await fetchSingleNote(noteId);
-    console.log(dataToUpdate);
-  }
+  // // update note
+  // async function updateNote(noteId) {
+  //   const dataToUpdate = await fetchSingleNote(noteId);
+  //   console.log(dataToUpdate);
+  // }
   // delete note
   async function deleteNote(noteId) {
     await fetch(`http://localhost:5000/notes/${noteId}`, {
@@ -61,29 +63,49 @@ function App() {
       });
     });
   }
+  function Home() {
+    return (
+      <div className={notesArray.length > 0 ? "" : "hints"}>
+        <CreateArea addFunction={addNote} />
+        {notesArray.length > 0 ? (
+          notesArray.map((note, index) => (
+            <Note
+              key={note.id}
+              id={note.id}
+              title={note.title}
+              content={note.content}
+              clickDeleteFunction={deleteNote}
+            />
+          ))
+        ) : (
+          <NoTaskHeader />
+        )}
+        <Footer />
+      </div>
+    );
+  }
+
+  function Update() {
+    return (
+      <div>
+        <CreateArea addFunction={addNote} />
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <Router>
       <div>
         <Header />
-        <div className={notesArray.length > 0 ? "" : "hints"}>
-          <CreateArea addFunction={addNote} />
-          {notesArray.length > 0 ? (
-            notesArray.map((note, index) => (
-              <Note
-                key={note.id}
-                id={note.id}
-                title={note.title}
-                content={note.content}
-                clickDeleteFunction={deleteNote}
-                clickUpdateFunction={updateNote}
-              />
-            ))
-          ) : (
-            <NoTaskHeader />
-          )}
-          <Footer />
-        </div>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/update">
+            <Update />
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
