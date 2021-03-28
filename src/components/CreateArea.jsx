@@ -1,11 +1,19 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import AddIcon from "@material-ui/icons/Add";
-import Fab from "@material-ui/core/Fab";
+import Button from "@material-ui/core/Button";
 import Zoom from "@material-ui/core/Zoom";
 
 function CreateArea(props) {
-  const [inputs, setInputs] = React.useState({ title: "", content: "" });
+  let initInputState;
+  if(props.curUpdate){
+    initInputState = { title: props.curUpdate.title, content: props.curUpdate.content };
+  }else{
+    initInputState = { title: "", content: "" };
+  }
+  const [inputs, setInputs] = React.useState(initInputState);
   const [isFold, setIsFold] = React.useState(true);
 
   function handleChange(event) {
@@ -40,15 +48,24 @@ function CreateArea(props) {
           onClick={handleTitleClick}
         />
         <Zoom in={!isFold}>
-          <Fab
+          <Button
+            to={'/'}
+            component={Link}
             onClick={(event) => {
-              props.addFunction(inputs);
-              event.preventDefault();
-              setInputs({ title: "", content: "" });
+              if(props.curUpdate){ // update
+                console.log("update id", props.curUpdate.id);
+                const updateNote = {
+                  ...inputs,
+                  id: props.curUpdate.id
+                };
+                props.addFunction(updateNote);
+              }else{ // create new
+                props.addFunction(inputs);
+              }
             }}
           >
             <AddIcon />
-          </Fab>
+          </Button>
         </Zoom>
       </form>
     </div>
