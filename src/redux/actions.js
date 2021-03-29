@@ -2,6 +2,25 @@ export const ADD = 'ADD';
 export const DELETE = 'DELETE';
 export const GET = 'GET';
 export const UPDATE = 'UPDATE';
+export const LOAD = 'LOAD'
+
+export const fetchNotes = () => {
+    return async dispatch => {
+        console.log("start fetching");
+        const res = await fetch("http://localhost:5000/notes"); // This is just a HTTP response
+        console.log("finish fetching");
+        const data = await res.json();
+        dispatch(loadNotes(data));
+        // return data;
+    }
+}
+
+export const loadNotes = (data) => {
+    return {
+        type: LOAD,
+        allnotes: data
+    };
+}
 
 export const addNote = (newNote) => {
     return {

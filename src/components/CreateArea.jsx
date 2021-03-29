@@ -60,6 +60,7 @@ function CreateArea(props) {
                 };
                 props.addFunction(updateNote);
               }else{ // create new
+                console.log(props);
                 props.addFunction(inputs);
               }
             }}

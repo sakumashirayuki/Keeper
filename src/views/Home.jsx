@@ -1,26 +1,38 @@
-import React from "react";
+import { React, useEffect } from "react";
 
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Note from "../components/Note";
 import NoTaskHeader from "../components/NoTaskHeader";
 import CreateArea from "../components/CreateArea";
 
-import { addNote, deleteNote, getNote } from "../redux/actions"
+import { fetchNotes, addNote, deleteNote, getNote } from "../redux/actions"
 
-function Home(props) {
+const selectNotes = state => state.notesArray;
+
+function Home() {
+  const notes = useSelector(selectNotes);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    console.log("use effect");
+    const loading = async () => {
+      await dispatch(fetchNotes());
+    };
+    loading();
+    console.log("what happened?");
+  }, [dispatch]);
   return (
-    <div className={props.notesArray.length > 0 ? "" : "hints"}>
-      <CreateArea addFunction={props.submitNote} />
-      {props.notesArray.length > 0 ? (
-        props.notesArray.map((note, index) => (
+    <div className={notes.length > 0 ? "" : "hints"}>
+      <CreateArea addFunction={(newNote)=>dispatch(addNote(newNote))} />
+      {notes.length > 0 ? (
+        notes.map((note, index) => (
           <Note
             key={note.id}
             id={note.id}
             title={note.title}
             content={note.content}
-            clickDeleteFunction={props.removeNote}
-            clickUpdateFunction={props.updateNote}
+            clickDeleteFunction={(noteId)=>dispatch(deleteNote(noteId))}
+            clickUpdateFunction={(noteId)=>dispatch(getNote(noteId))}
           />
         ))
       ) : (
@@ -29,22 +41,4 @@ function Home(props) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => {
-  return { notesArray: state.notesArray };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    submitNote: (newNote) => {
-      dispatch(addNote(newNote));
-    },
-    removeNote: (noteId) => {
-      dispatch(deleteNote(noteId));
-    },
-    updateNote: (noteId) => {
-      dispatch(getNote(noteId));
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
