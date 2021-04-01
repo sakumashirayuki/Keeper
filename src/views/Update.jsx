@@ -17,14 +17,4 @@ function Update() {
     </div>
   );
 }
-// const mapStateToProps = (state) => {
-//   return { curUpdate: state.curUpdate }; // curUpdate is a note obj
-// };
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//       submitNote: (updatedNote) => {
-//         dispatch(updateNote(updatedNote));
-//       }
-//     };
-//   };
 export default Update;

@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
+import axios from "axios"
 import { v4 as uuidv4 } from 'uuid';
 
 import { LOAD, ADD, DELETE, GET, UPDATE } from "./actions";
@@ -25,12 +26,10 @@ const noteReducer = (state = initState, action) => {
       };
       console.log(newNote);
       const addToServer = async(note)=>{
-        await fetch("http://localhost:5000/notes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(note),
+        await axios({
+          method: 'post',
+          url: 'http://localhost:5000/notes',
+          data: note
         });
       }
       addToServer(newNote);
@@ -40,9 +39,7 @@ const noteReducer = (state = initState, action) => {
       };
     case DELETE:
       const deleteToServer = async(noteId)=>{
-        await fetch(`http://localhost:5000/notes/${noteId}`, {
-          method: "DELETE",
-        });
+        await axios.delete(`http://localhost:5000/notes/${noteId}`);
       }
       deleteToServer(action.id);
       return {
@@ -62,13 +59,7 @@ const noteReducer = (state = initState, action) => {
         targetNote.content = action.note.content;
       }
       const updateToServer = async(noteId)=>{
-        await fetch(`http://localhost:5000/notes/${noteId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(targetNote)
-        });
+        await axios.put(`http://localhost:5000/notes/${noteId}`, targetNote);
       }
       updateToServer(action.note.id);
       return state;
